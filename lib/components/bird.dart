@@ -12,6 +12,7 @@ import 'package:flutter/material.dart';
 class Bird extends SpriteGroupComponent<BirdMovement>
     with HasGameRef<FlappyBirdGame>, CollisionCallbacks {
   Bird();
+  int score = 0;
 
   @override
   FutureOr<void> onLoad() async {
@@ -60,6 +61,13 @@ class Bird extends SpriteGroupComponent<BirdMovement>
   }
 
   void gameOver() {
+    gameRef.overlays.add('/game-over');
     gameRef.pauseEngine();
+    game.isHit = true;
+  }
+
+  void reset() {
+    position = Vector2(50, gameRef.size.y / 2 - size.y / 2);
+    score = 0;
   }
 }
